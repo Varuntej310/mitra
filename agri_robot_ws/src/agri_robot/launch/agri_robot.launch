@@ -1,0 +1,44 @@
+<launch>
+  <!-- Load robot description -->
+  <param name="robot_description" textfile="$(find agri_robot)/urdf/robot.urdf" />
+  
+  <!-- TF tree -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+  <node pkg="tf" type="static_transform_publisher" name="map_to_odom" 
+        args="0 0 0 0 0 0 map odom 100" />
+  
+  <!-- Start camera driver -->
+  <node pkg="usb_cam" type="usb_cam_node" name="usb_cam">
+    <param name="video_device" value="/dev/video0" />
+    <param name="image_width" value="640" />
+    <param name="image_height" value="480" />
+    <param name="pixel_format" value="yuyv" />
+    <param name="camera_frame_id" value="camera_link" />
+    <param name="camera_name" value="camera" />
+  </node>
+  
+  <!-- Start Arduino bridge -->
+  <node pkg="agri_robot" type="arduino_bridge_node.py" name="arduino_bridge" output="screen">
+    <param name="port" value="/dev/ttyACM0" />
+    <param name="baudrate" value="115200" />
+  </node>
+  
+  <!-- Start detection node -->
+  <node pkg="agri_robot" type="detection_node.py" name="detection_node" output="screen" />
+  
+  <!-- Start navigation node -->
+  <node pkg="agri_robot" type="navigation_node.py" name="navigation_node" output="screen">
+    <param name="linear_speed" value="0.2" />
+    <param name="angular_speed" value="0.5" />
+    <param name="row_spacing" value="0.5" />
+  </node>
+  
+  <!-- Start weed action node -->
+  <node pkg="agri_robot" type="weed_action_node.py" name="weed_action_node" output="screen">
+    <param name="min_weeds" value="3" />
+    <param name="action_duration" value="2.0" />
+  </node>
+  
+  <!-- Visualization tools -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find agri_robot)/rviz/config.rviz" />
+</launch>

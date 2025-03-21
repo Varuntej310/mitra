@@ -1,0 +1,30 @@
+# Robot parameters
+robot:
+  wheel_radius: 0.1
+  wheel_separation: 0.3
+  max_linear_speed: 0.5
+  max_angular_speed: 1.0
+
+# Navigation parameters
+navigation:
+  linear_speed: 0.2
+  angular_speed: 0.5
+  row_spacing: 0.5
+  goal_tolerance: 0.1
+
+# Detection parameters
+detection:
+  confidence_threshold: 0.5
+  model_path: "$(find agri_robot)/models/best.pt"
+
+# Weed control parameters
+weed_control:
+  min_weeds_for_action: 3
+  action_duration: 2.0
+  spray_pattern: "spot"  # "spot" or "row"
+
+# Arduino connection
+arduino:
+  port: "/dev/ttyACM0"
+  baudrate: 115200
+  timeout: 1.0
