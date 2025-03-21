@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weed and Crop Detection System</title>
+    <link rel="stylesheet" href="/static/css/style.css"> 
+</head>
+<body>
+    <h1>Weed and Crop Detection System</h1>
+
+    <h2>Latest Detection</h2>
+
+    <div id="latest-detection-container">
+        <img id="latest-detection-image" src="" alt="Latest Detection Image" style="max-width: 500px; max-height: 500px;">
+        <div id="latest-detection-summary">
+            <p><strong>Timestamp:</strong> <span id="timestamp"></span></p>
+            <p><strong>Crop Count:</strong> <span id="crop-count"></span></p>
+            <p><strong>Weed Count:</strong> <span id="weed-count"></span></p>
+            <p id="no-detections-message" style="display: none;">No detections yet.</p>
+        </div>
+    </div>
+
+    <br>
+    <a href="/history_page">View Detection History</a>
+
+    <script src="/static/js/script.js"></script>
+    <script>
+        // Initial load and periodic updates
+        updateLatestDetection();
+        setInterval(updateLatestDetection, 3000); // Update every 3 seconds
+    </script>
+</body>
+</html>
