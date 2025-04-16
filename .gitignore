@@ -3,3 +3,4 @@ env/
 models/
 outputs/
 __pycache__/
+best.pt
